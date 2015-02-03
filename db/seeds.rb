@@ -8,6 +8,7 @@
 Category.destroy_all
 Video.destroy_all
 Review.destroy_all
+QueueItem.destroy_all
 
 comedies = Category.create(name: "Comedies")
 Category.create(name: "Mysteries")
@@ -28,4 +29,11 @@ review2 = Review.create(rating: 5, content: "I absolutely love anything on TV.")
 video.reviews << review1 << review2
 user = User.first
 user.reviews << review1 << review2
+
+queue_item1 = QueueItem.create(rating: 5)
+queue_item1.video = Video.first
+queue_item2 = QueueItem.create(rating: 4)
+queue_item2.video = Video.last
+user.queue_items << queue_item1 << queue_item2
+
 

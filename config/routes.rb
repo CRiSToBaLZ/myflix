@@ -9,13 +9,17 @@ Myflix::Application.routes.draw do
 
   get 'ui(/:action)', controller: 'ui'
 
+  resources :queue_items, only: [:create]
+
+  get 'my_queue', to: 'queue_items#index'
+
   resources :videos, only: [:show] do
     collection do
-      get 'search', to: 'videos#search'
+      post :search, to: 'videos#search'
     end
 
     member do
-      post 'highlight', to: 'videos#highlight'
+      post :highlight, to: 'videos#highlight'
     end
 
     resources :reviews, only: [:create]
@@ -23,6 +27,6 @@ Myflix::Application.routes.draw do
 
   resources :categories, only: [:show]
 
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:create]
   
 end
