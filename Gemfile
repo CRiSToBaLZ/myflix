@@ -8,23 +8,21 @@ gem 'haml-rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
+gem 'pg'
 gem 'bcrypt-ruby'
 gem 'bootstrap_form'
 gem 'fabrication'
 gem 'faker'
 
 group :development do
-  gem 'sqlite3'
-  gem 'pry'
-  gem 'pry-nav'
   gem 'thin'
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'guard'
-  gem 'guard-rspec', require: false
 end
 
 group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
   gem 'rspec-rails', '2.99'
 end
 
@@ -34,7 +32,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
