@@ -56,9 +56,6 @@ describe Video do
       video = Fabricate(:video)
       review = Fabricate(:review, rating: 2)
       video.reviews << review
-      # sum = 0
-      # video.reviews.each { |review| sum += review.rating}
-      # average = sum / video.reviews.count
       expect(video.average_review).to eq(2) 
     end
 
@@ -67,22 +64,16 @@ describe Video do
       review1 = Fabricate(:review, rating: 2)
       review2 = Fabricate(:review, rating: 4)
       video.reviews << review1 << review2
-      # sum = 0
-      # video.reviews.each { |review| sum += review.rating}
-      # average = sum / video.reviews.count
       expect(video.average_review).to eq(3) 
     end
   end
 
   describe "order_by_created_at" do
-    it "returns an array ordered by created_at if multiple reviews found" do
+    it "returns an array ordered by created_at desc if multiple reviews found" do
       video = Fabricate(:video)
       review1 = Fabricate(:review)
       review2 = Fabricate(:review)
       video.reviews << review1 << review2
-      sum = 0
-      video.reviews.each { |review| sum += review.rating}
-      average = sum / video.reviews.count
       expect(video.reviews.order_by_created_at).to eq([review2, review1])
     end
 

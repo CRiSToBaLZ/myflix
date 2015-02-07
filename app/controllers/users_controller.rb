@@ -14,10 +14,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show_queue
-
-  end
-
   private
 
   def user_params
