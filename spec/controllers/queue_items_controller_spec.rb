@@ -43,14 +43,14 @@ describe QueueItemsController do
           session[:user_id] = Fabricate(:user).id
           video = Fabricate(:video)
           post :create, video_id: video.id
-          expect(QueueItem.first.video).to eq(video)
+          expect((QueueItem.where(video_id: video.id)).first.video).to eq(video)
         end
         it "creates the queue item that is associated with the sign in user" do
           user = Fabricate(:user)
           session[:user_id] = user.id
           video = Fabricate(:video)
           post :create, video_id: video.id
-          expect(QueueItem.first.user).to eq(user)
+          expect(QueueItem.where(video_id: video.id).first.user).to eq(user)
         end
         it "puts the video as the last one in the queue" do
           user = Fabricate(:user)
