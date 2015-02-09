@@ -8,15 +8,16 @@
 Category.destroy_all
 Video.destroy_all
 Review.destroy_all
+QueueItem.destroy_all
 
 comedies = Category.create(name: "Comedies")
-Category.create(name: "Mysteries")
-Category.create(name: "Tragedies")
+mysteries = Category.create(name: "Mysteries")
+tragedies = Category.create(name: "Tragedies")
 
 
-video = Video.create(title: "Monk", description: "OCD TV.  This is a show about a clean-cut man who likes to be clean.  Too clean, some would say.  Buy now!", small_url: "/tmp/monk.jpg" , large_url: "/tmp/monk_large.jpg", category: comedies)
+video = Video.create(title: "Monk", description: "OCD TV.  This is a show about a clean-cut man who likes to be clean.  Too clean, some would say.  Buy now!", small_url: "/tmp/monk.jpg" , large_url: "/tmp/monk_large.jpg", category: tragedies)
 
-Video.create(title: "Family Guy", description: "A comedy if you live in an upper-middle class suburb of New York.  Otherwise, a mystery.  Buy now!" , small_url: "/tmp/family_guy.jpg", category: comedies)
+Video.create(title: "Family Guy", description: "A comedy if you live in an upper-middle class suburb of New York.  Otherwise, a mystery.  Buy now!" , small_url: "/tmp/family_guy.jpg", category: mysteries)
 
 Video.create(title: "Futurama", description: "How people from the early 2000s viewed the future we now live in." , small_url: "/tmp/futurama.jpg", category: comedies)
 
@@ -28,4 +29,8 @@ review2 = Review.create(rating: 5, content: "I absolutely love anything on TV.")
 video.reviews << review1 << review2
 user = User.first
 user.reviews << review1 << review2
+
+queue_item1 = QueueItem.create(rating: 5, video: Video.first, user: user)
+queue_item2 = QueueItem.create(rating: 4, video: Video.last, user: user)
+
 

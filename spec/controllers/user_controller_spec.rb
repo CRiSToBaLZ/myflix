@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'pry'
 
 describe UsersController do
+  
   describe "GET new" do
     it "sets @user" do
       get :new
@@ -31,6 +32,8 @@ describe UsersController do
       post :create, user: { email: "johnny@appleseed.com", password: "apples"} 
       expect(response).to render_template :new
     end
-
   end
+
 end
+
+ 

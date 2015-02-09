@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
   has_many :videos
-  
+  validates :name, presence: true
+
   def recent_videos
     @videos_sorted = self.videos.sort_by { |video| video.created_at}.reverse
     if @videos_sorted.size < 6
@@ -9,6 +10,5 @@ class Category < ActiveRecord::Base
       return @videos_sorted.first(6)
     end
   end
-
 
 end

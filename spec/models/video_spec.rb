@@ -11,6 +11,7 @@ describe Video do
   end
 
   it { should belong_to(:category) }
+  it { should belong_to(:user) }
 
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }
@@ -53,35 +54,26 @@ describe Video do
     
     it "returns number equal to only rating if one review found" do
       video = Fabricate(:video)
-      review = Fabricate(:review)
+      review = Fabricate(:review, rating: 2)
       video.reviews << review
-      sum = 0
-      video.reviews.each { |review| sum += review.rating}
-      average = sum / video.reviews.count
-      expect(video.average_review).to eq(average) 
+      expect(video.average_review).to eq(2) 
     end
 
     it "returns number equal to average of multiple ratings if multiple reviews found" do
       video = Fabricate(:video)
-      review1 = Fabricate(:review)
-      review2 = Fabricate(:review)
+      review1 = Fabricate(:review, rating: 2)
+      review2 = Fabricate(:review, rating: 4)
       video.reviews << review1 << review2
-      sum = 0
-      video.reviews.each { |review| sum += review.rating}
-      average = sum / video.reviews.count
-      expect(video.average_review).to eq(average) 
+      expect(video.average_review).to eq(3) 
     end
   end
 
   describe "order_by_created_at" do
-    it "returns an array ordered by created_at if multiple reviews found" do
+    it "returns an array ordered by created_at desc if multiple reviews found" do
       video = Fabricate(:video)
       review1 = Fabricate(:review)
       review2 = Fabricate(:review)
       video.reviews << review1 << review2
-      sum = 0
-      video.reviews.each { |review| sum += review.rating}
-      average = sum / video.reviews.count
       expect(video.reviews.order_by_created_at).to eq([review2, review1])
     end
 

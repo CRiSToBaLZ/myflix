@@ -28,7 +28,7 @@ describe VideosController do
     it "sets @videos_searched for one video for authenticated users" do
       session[:user_id] = Fabricate(:user).id
       monk = Fabricate(:video, title: 'Monk')
-      post :search, search_term: "mon"
+      post :search, search_term: "Mon"
       expect(assigns(:videos_searched)).to eq([monk])
     end
 
@@ -38,13 +38,13 @@ describe VideosController do
       session[:user_id] = Fabricate(:user).id
       monk = Fabricate(:video, title: 'Monk')
       iron_monkey = Fabricate(:video, title: 'Iron Monkey')
-      post :search, search_term: "mon"
+      post :search, search_term: "Mon"
       expect(assigns(:videos_searched)).to eq([iron_monkey, monk])
     end
 
     it "redirects to sign-in page for unauthenticated users" do
       iron_monkey = Fabricate(:video, title: 'Iron Monkey')
-      post :search, search_term: "mon"
+      post :search, search_term: "Mon"
       expect(response).to redirect_to sign_in_path
     end
 

@@ -1,12 +1,10 @@
 class Video < ActiveRecord::Base
   belongs_to :category
+  belongs_to :user
+  has_many :queue_items
   has_many :reviews
 
-  validates :title, presence: true
-  validates :description, presence: true
-
-
-
+  validates_presence_of :title, :description
 
   def self.search_by_title(search_term)
     if search_term.blank? #use blank instead of empty bc empty includes "  "
@@ -17,20 +15,15 @@ class Video < ActiveRecord::Base
   end
 
   def average_review
-    if self.reviews.count == 0
+    if (count = self.reviews.count) == 0
       return "N/A"
     else
-      sum = 0
-      self.reviews.each do |review|
-        sum += review.rating
-      end
-      average = sum / self.reviews.count
+      sum = reviews.to_a.sum(&:rating).to_f
+      sum / count
     end
   end
 
   def self.order_by_created_at
     self.order("created_at DESC")
   end
-
-
 end
